@@ -1,0 +1,29 @@
+.adobe-logo {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	color: var(--primary) !important;
+}
+
+.d-header > .wrap {
+    box-sizing: border-box;
+    max-width: none;
+}
+
+.header-sidebar-toggle button,
+.d-header-icons .icon {
+    margin-right: 0.5rem;
+    box-sizing: content-box;
+    display: flex;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    padding: 0.25rem;
+    color: red;
+}
+
+.d-header-icons .icon img.avatar {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
