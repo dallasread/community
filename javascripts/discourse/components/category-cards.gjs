@@ -30,9 +30,8 @@ export default class CategoryCards extends Component {
       const response = await ajax("/categories");
 
       this.categories = response.category_list.categories
-      console.log(this.categories)
     } catch (e) {
-	  this.loadingError = e.message
+  	  this.loadingError = e.message
     }
   }
 
