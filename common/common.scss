@@ -247,3 +247,46 @@
 		}
 	}
 }
+
+.nice-graphics {
+	margin-bottom: 4rem;
+	padding: 2rem;
+	background: var(--primary-50);
+
+	.nice-graphics-list {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(calc(25% - 1.5rem), 1fr));
+		gap: 1.5rem;
+		margin-top: 1.5rem;
+		justify-content: flex-start;
+
+		.nice-graphic {
+			border-radius: 1rem;
+			padding: 1.5rem;
+			padding-bottom: 2.5rem;
+			color: inherit;
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center;
+			transition: all ease 750ms;
+			min-height: 15rem;
+
+			&:hover {
+				box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+			}
+
+			svg {
+				float: right;
+			}
+
+			h4 {
+				font-size: 1.2rem;
+			}
+
+			.description {
+				font-size: 0.85rem;
+				margin-top: 0.5rem;
+			}
+		}
+	}
+}
