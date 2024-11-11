@@ -6,6 +6,8 @@ import { action } from "@ember/object";
 import { number } from "discourse/lib/formatter";
 import { eq } from "truth-helpers";
 import { defaultHomepage } from "discourse/lib/utilities";
+import didInsert from "@ember/render-modifiers/modifiers/did-insert";
+import didUpdate from "@ember/render-modifiers/modifiers/did-update";
 
 export default class CategoryCards extends Component {
   @service router;
@@ -13,12 +15,6 @@ export default class CategoryCards extends Component {
 
   @tracked categories = [];
   @tracked loadingError = null;
-  @tracked category = null;
-
-  constructor() {
-    super(...arguments);
-    this.fetchCategories();
-  }
 
   @action
   async fetchCategories() {
@@ -41,7 +37,7 @@ export default class CategoryCards extends Component {
   }
 
   <template>
-  	<div class="category-cards">
+  	<div class="category-cards" {{didInsert this.fetchCategories}} {{didUpdate this.fetchCategories @category}}>
   		{{#if this.loadingError}}
   			<p>Could not load categories.</p>
   		{{else}}
