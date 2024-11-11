@@ -1,15 +1,11 @@
 import Component from "@glimmer/component";
 import { inject as service } from "@ember/service";
-import { defaultHomepage } from "discourse/lib/utilities";
-import didInsert from "@ember/render-modifiers/modifiers/did-insert";
 import { ajax } from "discourse/lib/ajax";
-import { popupAjaxError } from "discourse/lib/ajax-error";
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { number } from "discourse/lib/formatter";
 import { eq } from "truth-helpers";
-import { LinkTo } from "@ember/routing";
-import Category from "discourse/models/category";
+import { defaultHomepage } from "discourse/lib/utilities";
 
 export default class CategoryCards extends Component {
   @service router;
@@ -17,6 +13,7 @@ export default class CategoryCards extends Component {
 
   @tracked categories = [];
   @tracked loadingError = null;
+  @tracked category = null;
 
   constructor() {
     super(...arguments);
@@ -29,7 +26,8 @@ export default class CategoryCards extends Component {
     this.loadingError = null
 
     try {
-      const response = await ajax("/categories");
+      const with_parent = this.args.category ? `?parent_category_id=${this.args.category.id}` : ''
+      const response = await ajax(`/categories${with_parent}`);
       this.categories = response.category_list.categories.map((category) => {
         return {
           name: category.name,
