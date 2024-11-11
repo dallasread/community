@@ -9,6 +9,7 @@ import { action } from "@ember/object";
 import { number } from "discourse/lib/formatter";
 import { eq } from "truth-helpers";
 import { LinkTo } from "@ember/routing";
+import Category from "discourse/models/category";
 
 export default class CategoryCards extends Component {
   @service router;
@@ -25,11 +26,17 @@ export default class CategoryCards extends Component {
   @action
   async fetchCategories() {
     this.categories = [];
+    this.loadingError = null
 
     try {
       const response = await ajax("/categories");
-
-      this.categories = response.category_list.categories
+      this.categories = response.category_list.categories.map((category) => {
+        return {
+          name: category.name,
+          href: `/c/${category.slug}/${category.id}`,
+          post_count: category.post_count
+        }
+      })
     } catch (e) {
   	  this.loadingError = e.message
     }
@@ -42,7 +49,7 @@ export default class CategoryCards extends Component {
   		{{else}}
   			{{#each this.categories as |category|}}
           <a
-            href={{category.topic_url}}
+            href={{category.href}}
             title={{category.name}}
             class="category-card"
           >
